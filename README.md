@@ -2,6 +2,11 @@
 
 EduSpark is a Django learning platform with course pages, embedded video lectures, and exam support.
 
+## Live App
+
+- Public app: https://edusparkplatformapp6839.azurewebsites.net/
+- Courses page: https://edusparkplatformapp6839.azurewebsites.net/courses/
+
 ## What is included
 
 - Class and subject-based course catalog
