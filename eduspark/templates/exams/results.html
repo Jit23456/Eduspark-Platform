@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Exam Results – EduSpark{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <!-- SCORE CARD -->
+      <div class="card card-modern text-center mb-4" style="overflow:hidden">
+        <div style="padding:50px 20px;color:#fff;background:
+          {% if attempt.percentage >= 80 %}linear-gradient(135deg,#059669,#34d399)
+          {% elif attempt.percentage >= 60 %}linear-gradient(135deg,#7c3aed,#a78bfa)
+          {% elif attempt.percentage >= 40 %}linear-gradient(135deg,#f59e0b,#fbbf24)
+          {% else %}linear-gradient(135deg,#dc2626,#f87171){% endif %}">
+          <div style="font-size:5rem">
+            {% if attempt.percentage >= 80 %}🏆{% elif attempt.percentage >= 60 %}👍{% elif attempt.percentage >= 40 %}😐{% else %}😟{% endif %}
+          </div>
+          <h1 style="font-size:4rem;font-weight:900;margin:10px 0">{{ attempt.percentage }}%</h1>
+          <h5 style="opacity:.9">Grade: {{ attempt.grade }}</h5>
+          <p style="opacity:.8;margin:0">{{ attempt.correct_answers }} correct out of {{ attempt.total_questions }} questions</p>
+        </div>
+        <div class="card-body py-4">
+          <div class="row g-3">
+            <div class="col-4">
+              <div style="background:#ede9fe;border-radius:12px;padding:14px">
+                <div style="font-size:1.6rem;font-weight:800;color:#7c3aed">{{ attempt.correct_answers }}</div>
+                <small class="text-muted">Correct</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div style="background:#fee2e2;border-radius:12px;padding:14px">
+                <div style="font-size:1.6rem;font-weight:800;color:#dc2626">{{ attempt.total_questions|add:"-1"|add:"1" }}</div>
+                <small class="text-muted">Wrong</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div style="background:#dcfce7;border-radius:12px;padding:14px">
+                <div style="font-size:1.6rem;font-weight:800;color:#15803d">{{ attempt.total_questions }}</div>
+                <small class="text-muted">Total</small>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex gap-2 justify-content-center mt-4 flex-wrap">
+            <a href="{% url 'exam_list' %}" class="btn btn-primary-custom">📝 Try More Exams</a>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary" style="border-radius:30px;border-width:2px">🏠 Dashboard</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANSWER REVIEW -->
+      <h5 style="font-weight:800;margin-bottom:18px">📋 Detailed Review</h5>
+      {% for ans in answers %}
+      <div style="border:2px solid {% if ans.is_correct %}#86efac{% else %}#fca5a5{% endif %};border-radius:14px;padding:16px;margin-bottom:12px;background:{% if ans.is_correct %}#f0fdf4{% else %}#fff5f5{% endif %}">
+        <div class="d-flex align-items-start">
+          <div style="width:34px;height:34px;background:{% if ans.is_correct %}#dcfce7{% else %}#fee2e2{% endif %};border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:12px">
+            {% if ans.is_correct %}
+            <i class="fas fa-check" style="color:#16a34a"></i>
+            {% else %}
+            <i class="fas fa-times" style="color:#dc2626"></i>
+            {% endif %}
+          </div>
+          <div class="flex-grow-1">
+            <p style="font-weight:600;margin-bottom:8px;color:#1e1b4b">Q{{ ans.question.order }}: {{ ans.question.question_text }}</p>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge-pill" style="background:#ede9fe;color:#7c3aed">Your answer: {{ ans.selected_answer|default:"Not answered" }}</span>
+              {% if not ans.is_correct %}
+              <span class="badge-pill" style="background:#dcfce7;color:#15803d">✓ Correct: {{ ans.question.correct_answer }}</span>
+              {% else %}
+              <span class="badge-pill" style="background:#dcfce7;color:#15803d">✓ Correct!</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -12,3 +12,5 @@ media/
 .elasticbeanstalk/
 .vs/
 .vscode/
+azure-logs/
+azure-logs.zip

@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block title %}EduSpark – Learn Smarter, Score Better{% endblock %}
+{% block content %}
+
+<!-- HERO -->
+<section class="bg-hero text-white py-5" style="min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(124,58,237,.15);top:-150px;right:-100px;"></div>
+  <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(236,72,153,.1);bottom:50px;left:-80px;"></div>
+  <div class="container position-relative">
+    <div class="row align-items-center">
+      <div class="col-lg-6 fade-up">
+        <span style="background:rgba(167,139,250,.2);color:#c4b5fd;padding:7px 16px;border-radius:20px;font-size:.85rem;font-weight:600">🚀 India's #1 EdTech Platform</span>
+        <h1 style="font-size:3.4rem;font-weight:800;margin-top:18px;line-height:1.2">
+          Learn Smarter,<br>
+          <span style="background:linear-gradient(90deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Score Better! 🎯</span>
+        </h1>
+        <p style="font-size:1.1rem;color:rgba(255,255,255,.8);margin-top:16px;line-height:1.8">
+          Interactive video lessons, MCQ exams &amp; assignments for Class 1–10.<br>Learn from the best teachers anytime, anywhere.
+        </p>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a href="{% url 'signup' %}" class="btn btn-primary-custom btn-lg">Start Learning Free <i class="fas fa-arrow-right ms-2"></i></a>
+          <a href="{% url 'course_list' %}" class="btn btn-outline-light btn-lg" style="border-radius:30px"><i class="fas fa-play me-2"></i>Explore Courses</a>
+        </div>
+        <div class="row mt-4 g-2" style="max-width:360px">
+          <div class="col-4 text-center">
+            <div style="font-size:1.6rem;font-weight:800;color:#34d399">50K+</div>
+            <small style="color:rgba(255,255,255,.6);font-size:.78rem">Students</small>
+          </div>
+          <div class="col-4 text-center">
+            <div style="font-size:1.6rem;font-weight:800;color:#f472b6">200+</div>
+            <small style="color:rgba(255,255,255,.6);font-size:.78rem">Courses</small>
+          </div>
+          <div class="col-4 text-center">
+            <div style="font-size:1.6rem;font-weight:800;color:#a78bfa">4.9★</div>
+            <small style="color:rgba(255,255,255,.6);font-size:.78rem">Rating</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center mt-5 mt-lg-0">
+        <div style="background:rgba(255,255,255,.05);border-radius:28px;padding:40px;border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px)">
+          <div style="font-size:6rem">🎓</div>
+          <div class="row mt-3 g-3">
+            <div class="col-6"><div style="background:rgba(124,58,237,.2);border-radius:14px;padding:16px"><div style="font-size:2rem">📐</div><small style="color:#c4b5fd">Mathematics</small></div></div>
+            <div class="col-6"><div style="background:rgba(5,150,105,.2);border-radius:14px;padding:16px"><div style="font-size:2rem">🔬</div><small style="color:#6ee7b7">Science</small></div></div>
+            <div class="col-6"><div style="background:rgba(236,72,153,.2);border-radius:14px;padding:16px"><div style="font-size:2rem">📖</div><small style="color:#f9a8d4">English</small></div></div>
+            <div class="col-6"><div style="background:rgba(245,158,11,.2);border-radius:14px;padding:16px"><div style="font-size:2rem">🌍</div><small style="color:#fde68a">Social Sc.</small></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-5 mt-2">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Why Choose <span>EduSpark</span>?</h2>
+      <p class="text-muted mt-2">Everything you need to top your class</p>
+    </div>
+    <div class="row g-4">
+      {% for icon,title,desc,grad in feat %}{% empty %}
+      <div class="col-md-3">
+        <div class="card card-modern text-center p-4">
+          <div style="width:65px;height:65px;background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem">📹</div>
+          <h6 style="font-weight:700">Video Lectures</h6>
+          <p class="text-muted small">HD quality videos by expert teachers</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-modern text-center p-4">
+          <div style="width:65px;height:65px;background:linear-gradient(135deg,#ec4899,#f9a8d4);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem">📝</div>
+          <h6 style="font-weight:700">MCQ Exams</h6>
+          <p class="text-muted small">Timer-based tests with instant results</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-modern text-center p-4">
+          <div style="width:65px;height:65px;background:linear-gradient(135deg,#059669,#34d399);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem">📊</div>
+          <h6 style="font-weight:700">Track Progress</h6>
+          <p class="text-muted small">Visual dashboard for your learning</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-modern text-center p-4">
+          <div style="width:65px;height:65px;background:linear-gradient(135deg,#f59e0b,#fbbf24);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem">🏆</div>
+          <h6 style="font-weight:700">Assignments</h6>
+          <p class="text-muted small">Chapter-wise practice assignments</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section class="py-5" style="background:linear-gradient(135deg,#f4f6ff,#ede9fe)">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Pick Your <span>Class</span></h2>
+      <p class="text-muted">Courses available from Class 1 to Class 10</p>
+    </div>
+    <div class="row g-3 justify-content-center">
+      {% for i in "1234567890" %}
+      <div class="col-6 col-sm-4 col-md-2">
+        <a href="{% url 'course_list' %}?grade={{ forloop.counter }}" class="text-decoration-none">
+          <div class="card card-modern text-center p-3" style="cursor:pointer">
+            <div style="font-size:1.8rem">{% if forloop.counter <= 5 %}🌱{% else %}🌳{% endif %}</div>
+            <div style="font-weight:700;color:#1e1b4b;margin-top:6px;font-size:.95rem">Class {{ forloop.counter }}</div>
+            <small class="text-muted" style="font-size:.78rem">View →</small>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- RECENT COURSES -->
+{% if courses %}
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Popular <span>Courses</span></h2>
+    </div>
+    <div class="row g-4">
+      {% for course in courses %}
+      <div class="col-md-4">
+        <a href="{% url 'course_detail' course.id %}" class="text-decoration-none">
+          <div class="card card-modern h-100">
+            <div class="course-img {% cycle 'bg-purple' 'bg-pink' 'bg-green' 'bg-orange' 'bg-blue' 'bg-purple' %}" style="border-radius:18px 18px 0 0">
+              {% if course.subject == 'mathematics' %}📐{% elif course.subject == 'science' %}🔬{% elif course.subject == 'english' %}📖{% elif course.subject == 'hindi' %}📜{% else %}📚{% endif %}
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-2">
+                <span class="badge-pill" style="background:#ede9fe;color:#7c3aed">Class {{ course.class_grade }}</span>
+                <span class="badge-pill" style="background:#dcfce7;color:#15803d">{{ course.get_subject_display }}</span>
+              </div>
+              <h6 style="font-weight:700;color:#1e1b4b">{{ course.title }}</h6>
+              <p class="text-muted small">{{ course.description|truncatechars:70 }}</p>
+              <span class="btn btn-primary-custom btn-sm w-100 mt-2">View Course →</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- CTA -->
+<section class="py-5" style="background:linear-gradient(135deg,#7c3aed,#ec4899)">
+  <div class="container text-center py-3">
+    <h2 style="color:#fff;font-size:2.4rem;font-weight:800">Ready to Start Learning?</h2>
+    <p style="color:rgba(255,255,255,.9);font-size:1.1rem;margin-top:8px">Join 50,000+ students already learning on EduSpark</p>
+    <a href="{% url 'signup' %}" class="btn btn-light btn-lg mt-4" style="border-radius:30px;font-weight:700;color:#7c3aed;padding:13px 35px">
+      Get Started for Free 🚀
+    </a>
+  </div>
+</section>
+
+{% endblock %}

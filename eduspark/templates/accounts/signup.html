@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up – EduSpark{% endblock %}
+{% block content %}
+<div class="auth-wrap" style="min-height:auto;padding:40px 0">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <div class="auth-card card" style="max-width:100%">
+          <div class="text-center mb-4">
+            <div style="font-size:2.8rem">🚀</div>
+            <h3 style="font-weight:800;color:#1e1b4b;margin-top:8px">Create Your Account</h3>
+            <p class="text-muted">Join 50,000+ students on EduSpark</p>
+          </div>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label" style="font-weight:600">First Name</label>
+                <input type="text" name="first_name" class="form-control" placeholder="First name" required value="{{ form.first_name.value|default:'' }}">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" style="font-weight:600">Last Name</label>
+                <input type="text" name="last_name" class="form-control" placeholder="Last name" required value="{{ form.last_name.value|default:'' }}">
+              </div>
+              <div class="col-12">
+                <label class="form-label" style="font-weight:600">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Choose a username" required value="{{ form.username.value|default:'' }}">
+              </div>
+              <div class="col-12">
+                <label class="form-label" style="font-weight:600">Email Address</label>
+                <input type="email" name="email" class="form-control" placeholder="your@email.com" required value="{{ form.email.value|default:'' }}">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" style="font-weight:600">Phone Number</label>
+                <input type="tel" name="phone" class="form-control" placeholder="+91 XXXXX XXXXX" value="{{ form.phone.value|default:'' }}">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" style="font-weight:600">Your Class</label>
+                <select name="class_grade" class="form-select" required>
+                  <option value="">Select Class</option>
+                  {% for i in "1234567890" %}
+                  <option value="{{ forloop.counter }}">Class {{ forloop.counter }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label" style="font-weight:600">Password</label>
+                <input type="password" name="password1" class="form-control" placeholder="Create a strong password" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label" style="font-weight:600">Confirm Password</label>
+                <input type="password" name="password2" class="form-control" placeholder="Repeat your password" required>
+              </div>
+            </div>
+
+            {% if form.errors %}
+            <div class="alert alert-danger mt-3" style="border-radius:10px;border:none;font-size:.9rem">
+              <i class="fas fa-exclamation-circle me-2"></i><strong>Please fix:</strong>
+              <ul class="mb-0 mt-1">
+                {% for field, errors in form.errors.items %}{% for error in errors %}<li>{{ error }}</li>{% endfor %}{% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary-custom w-100 mt-4" style="font-size:1rem;padding:13px">
+              <i class="fas fa-user-plus me-2"></i>Create My Account
+            </button>
+          </form>
+          <p class="text-center mt-4 mb-0 text-muted">
+            Already have an account? <a href="{% url 'login' %}" style="color:#7c3aed;font-weight:700">Sign In</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

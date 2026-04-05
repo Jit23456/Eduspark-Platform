@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}{{ exam.title }} – EduSpark{% endblock %}
+{% block content %}
+
+<!-- STICKY EXAM BAR -->
+<div style="position:sticky;top:68px;z-index:100;background:#fff;border-bottom:2px solid #e5e7eb;padding:13px 0;box-shadow:0 4px 15px rgba(0,0,0,.05)">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div>
+      <h6 style="font-weight:800;margin:0;color:#1e1b4b">📝 {{ exam.title }}</h6>
+      <small class="text-muted">{{ questions.count }} Questions · Class {{ exam.class_grade }} · {{ exam.subject|title }}</small>
+    </div>
+    <div id="exam-timer">⏱ <span id="timer-display">{{ exam.duration_minutes }}:00</span></div>
+  </div>
+</div>
+
+<div class="container py-4" style="max-width:780px">
+  <form method="POST" id="examForm">
+    {% csrf_token %}
+
+    {% for question in questions %}
+    <div class="q-card">
+      <div class="d-flex align-items-start mb-3">
+        <span style="background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;margin-right:12px;font-size:.9rem">
+          {{ forloop.counter }}
+        </span>
+        <p style="font-weight:600;font-size:1rem;margin:0;padding-top:4px">{{ question.question_text }}</p>
+      </div>
+
+      <div class="ms-4 ps-2">
+        {% for val, label, clr in option_list %}{% empty %}
+        <!-- Option A -->
+        <input type="radio" name="q_{{ question.id }}" id="q{{ question.id }}_a" value="A">
+        <label for="q{{ question.id }}_a" class="option-lbl">
+          <span style="width:26px;height:26px;background:#ede9fe;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:#7c3aed;margin-right:10px;font-size:.85rem">A</span>
+          {{ question.option_a }}
+        </label>
+        <!-- Option B -->
+        <input type="radio" name="q_{{ question.id }}" id="q{{ question.id }}_b" value="B">
+        <label for="q{{ question.id }}_b" class="option-lbl">
+          <span style="width:26px;height:26px;background:#fce7f3;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:#ec4899;margin-right:10px;font-size:.85rem">B</span>
+          {{ question.option_b }}
+        </label>
+        <!-- Option C -->
+        <input type="radio" name="q_{{ question.id }}" id="q{{ question.id }}_c" value="C">
+        <label for="q{{ question.id }}_c" class="option-lbl">
+          <span style="width:26px;height:26px;background:#d1fae5;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:#059669;margin-right:10px;font-size:.85rem">C</span>
+          {{ question.option_c }}
+        </label>
+        <!-- Option D -->
+        <input type="radio" name="q_{{ question.id }}" id="q{{ question.id }}_d" value="D">
+        <label for="q{{ question.id }}_d" class="option-lbl">
+          <span style="width:26px;height:26px;background:#fef3c7;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:#f59e0b;margin-right:10px;font-size:.85rem">D</span>
+          {{ question.option_d }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <div class="text-center mt-4 mb-5">
+      <button type="submit" class="btn btn-primary-custom btn-lg" style="padding:14px 50px;font-size:1.05rem">
+        <i class="fas fa-check-circle me-2"></i>Submit Exam
+      </button>
+    </div>
+  </form>
+</div>
+
+{% block extra_js %}
+<script>
+let total = {{ exam.duration_minutes }} * 60;
+function tick() {
+  const m = String(Math.floor(total / 60)).padStart(2,'0');
+  const s = String(total % 60).padStart(2,'0');
+  document.getElementById('timer-display').textContent = m + ':' + s;
+  if (total <= 60) document.getElementById('exam-timer').classList.add('warning');
+  if (total <= 0) { document.getElementById('examForm').submit(); return; }
+  total--;
+  setTimeout(tick, 1000);
+}
+tick();
+</script>
+{% endblock %}
+{% endblock %}

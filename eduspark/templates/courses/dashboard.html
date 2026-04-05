@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard – EduSpark{% endblock %}
+{% block content %}
+<div class="container-fluid p-0">
+  <div class="row g-0">
+
+    <!-- SIDEBAR -->
+    <div class="col-lg-2 d-none d-lg-block">
+      <div class="sidebar">
+        <div class="px-3 mb-3 text-center">
+          <div style="width:56px;height:56px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#fff;margin:0 auto">
+            {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
+          </div>
+          <p class="mt-2 mb-0 text-white small" style="font-weight:600">{{ user.first_name }} {{ user.last_name }}</p>
+          {% if profile %}<small style="color:#c4b5fd">Class {{ profile.class_grade }}</small>{% endif %}
+        </div>
+        <hr style="border-color:rgba(255,255,255,.1)">
+        <nav class="nav flex-column">
+          <a class="nav-link active" href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
+          <a class="nav-link" href="{% url 'course_list' %}"><i class="fas fa-book"></i> Courses</a>
+          <a class="nav-link" href="{% url 'exam_list' %}"><i class="fas fa-pen"></i> Exams</a>
+          {% if user.is_staff %}<a class="nav-link" href="/admin/"><i class="fas fa-cog"></i> Admin</a>{% endif %}
+          <hr style="border-color:rgba(255,255,255,.1)">
+          <a class="nav-link" style="color:#f87171!important" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="col-lg-10">
+      <div class="p-4">
+
+        <!-- GREETING BANNER -->
+        <div class="bg-hero text-white" style="border-radius:20px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden">
+          <div style="position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(167,139,250,.15);top:-60px;right:-40px"></div>
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 style="font-weight:800;margin:0">Hello, {{ user.first_name|default:user.username }}! 👋</h3>
+              <p style="opacity:.8;margin:4px 0 0">{% if profile %}Class {{ profile.class_grade }} Student · {% endif %}Keep learning, keep growing 🚀</p>
+            </div>
+            <div class="col-auto d-none d-md-block" style="font-size:3.5rem">🎓</div>
+          </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-md-3">
+            <div class="stat-card bg-purple"><h2>{{ enrollments.count }}</h2><p><i class="fas fa-book me-1"></i>Enrolled</p></div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-card bg-pink"><h2>{{ recent_exams|length }}</h2><p><i class="fas fa-pen me-1"></i>Exams Done</p></div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-card bg-green">
+              <h2>{% if recent_exams %}{{ recent_exams.0.percentage }}%{% else %}--{% endif %}</h2>
+              <p><i class="fas fa-star me-1"></i>Last Score</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-card bg-orange"><h2>{{ all_courses.count }}</h2><p><i class="fas fa-graduation-cap me-1"></i>Courses</p></div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+
+          <!-- ENROLLED COURSES -->
+          <div class="col-lg-7">
+            <div class="card card-modern p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 style="font-weight:700;margin:0">📚 My Enrolled Courses</h6>
+                <a href="{% url 'course_list' %}" class="btn btn-primary-custom btn-sm">+ Enroll More</a>
+              </div>
+              {% if enrollments %}
+                {% for en in enrollments %}
+                <a href="{% url 'course_detail' en.course.id %}" class="text-decoration-none">
+                  <div style="border:2px solid #e5e7eb;border-radius:12px;padding:14px;margin-bottom:10px;transition:.2s" onmouseover="this.style.borderColor='#7c3aed'" onmouseout="this.style.borderColor='#e5e7eb'">
+                    <div class="d-flex align-items-center">
+                      <div style="width:42px;height:42px;background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">
+                        {% if en.course.subject == 'mathematics' %}📐{% elif en.course.subject == 'science' %}🔬{% elif en.course.subject == 'english' %}📖{% else %}📚{% endif %}
+                      </div>
+                      <div class="ms-3 flex-grow-1">
+                        <div style="font-weight:600;color:#1e1b4b;font-size:.95rem">{{ en.course.title }}</div>
+                        <small class="text-muted">Class {{ en.course.class_grade }} · {{ en.course.get_subject_display }}</small>
+                      </div>
+                      <i class="fas fa-chevron-right text-muted"></i>
+                    </div>
+                    <div class="progress mt-2"><div class="progress-bar" style="width:{{ en.progress }}%;background:linear-gradient(90deg,#7c3aed,#a78bfa)"></div></div>
+                    <small class="text-muted">{{ en.progress }}% complete</small>
+                  </div>
+                </a>
+                {% endfor %}
+              {% else %}
+                <div class="text-center py-4">
+                  <div style="font-size:3rem">📭</div>
+                  <p class="text-muted mt-2">No courses enrolled yet!</p>
+                  <a href="{% url 'course_list' %}" class="btn btn-primary-custom btn-sm">Browse Courses</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- RECENT EXAMS + QUICK ACTIONS -->
+          <div class="col-lg-5">
+            <div class="card card-modern p-4 mb-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 style="font-weight:700;margin:0">📝 Recent Exams</h6>
+                <a href="{% url 'exam_list' %}" class="btn btn-primary-custom btn-sm">Take Exam</a>
+              </div>
+              {% if recent_exams %}
+                {% for att in recent_exams %}
+                <div style="border:2px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:10px">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <div style="font-weight:600;font-size:.9rem;color:#1e1b4b">{{ att.exam.title }}</div>
+                      <small class="text-muted">{{ att.completed_at|date:"d M Y" }}</small>
+                    </div>
+                    <div class="text-end">
+                      <div style="font-size:1.3rem;font-weight:800;{% if att.percentage >= 80 %}color:#059669{% elif att.percentage >= 60 %}color:#7c3aed{% elif att.percentage >= 40 %}color:#f59e0b{% else %}color:#dc2626{% endif %}">{{ att.percentage }}%</div>
+                      <small class="text-muted">Grade {{ att.grade }}</small>
+                    </div>
+                  </div>
+                  <div class="progress mt-2" style="height:5px">
+                    <div class="progress-bar" style="width:{{ att.percentage }}%;background:{% if att.percentage >= 80 %}#059669{% elif att.percentage >= 60 %}#7c3aed{% else %}#dc2626{% endif %}"></div>
+                  </div>
+                </div>
+                {% endfor %}
+              {% else %}
+                <div class="text-center py-3">
+                  <div style="font-size:2.5rem">📝</div>
+                  <p class="text-muted small mt-2">No exams taken yet</p>
+                  <a href="{% url 'exam_list' %}" class="btn btn-primary-custom btn-sm">Start an Exam</a>
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- QUICK ACTIONS -->
+            <div class="card card-modern p-4">
+              <h6 style="font-weight:700;margin-bottom:14px">⚡ Quick Actions</h6>
+              <div class="d-grid gap-2">
+                <a href="{% url 'course_list' %}" class="btn btn-outline-primary" style="border-radius:10px;font-weight:600;border-width:2px"><i class="fas fa-search me-2"></i>Browse All Courses</a>
+                <a href="{% url 'exam_list' %}" class="btn btn-outline-danger" style="border-radius:10px;font-weight:600;border-width:2px"><i class="fas fa-pen me-2"></i>Take Weekly Exam</a>
+                {% if user.is_staff %}
+                <a href="/admin/" class="btn btn-outline-warning" style="border-radius:10px;font-weight:600;border-width:2px"><i class="fas fa-cog me-2"></i>Admin Panel</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

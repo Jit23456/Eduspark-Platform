@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Login – EduSpark{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="auth-card card">
+          <div class="text-center mb-4">
+            <div style="font-size:3rem">🎓</div>
+            <h3 style="font-weight:800;color:#1e1b4b;margin-top:8px">Welcome Back!</h3>
+            <p class="text-muted">Sign in to continue learning</p>
+          </div>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="form-label fw-600" style="font-weight:600">Username</label>
+              <div class="input-group">
+                <span class="input-group-text" style="border:2px solid #e5e7eb;border-right:none;border-radius:10px 0 0 10px;background:#f9fafb"><i class="fas fa-user text-muted"></i></span>
+                <input type="text" name="username" class="form-control" style="border-left:none;border-radius:0 10px 10px 0" placeholder="Enter username" required>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="form-label" style="font-weight:600">Password</label>
+              <div class="input-group">
+                <span class="input-group-text" style="border:2px solid #e5e7eb;border-right:none;border-radius:10px 0 0 10px;background:#f9fafb"><i class="fas fa-lock text-muted"></i></span>
+                <input type="password" name="password" class="form-control" style="border-left:none;border-radius:0 10px 10px 0" placeholder="Enter password" required>
+              </div>
+            </div>
+            {% if form.errors %}
+            <div class="alert alert-danger" style="border-radius:10px;border:none;font-size:.9rem">
+              <i class="fas fa-exclamation-circle me-2"></i>Invalid username or password.
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary-custom w-100" style="font-size:1rem;padding:13px">
+              <i class="fas fa-sign-in-alt me-2"></i>Sign In
+            </button>
+          </form>
+          <p class="text-center mt-4 mb-0 text-muted">
+            Don't have an account? <a href="{% url 'signup' %}" style="color:#7c3aed;font-weight:700">Sign Up Free</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
