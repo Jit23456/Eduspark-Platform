@@ -1,1 +1,1 @@
-web: gunicorn eduspark.wsgi --log-file -
+web: python manage.py migrate && python manage.py collectstatic --noinput && gunicorn eduspark.wsgi --log-file -
