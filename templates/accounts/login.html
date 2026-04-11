@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Login – EduSpark{% endblock %}
+{% block title %}Login - EduSpark{% endblock %}
 {% block content %}
 <div class="auth-wrap">
   <div class="container">
@@ -7,10 +7,21 @@
       <div class="col-md-5">
         <div class="auth-card card">
           <div class="text-center mb-4">
-            <div style="font-size:3rem">🎓</div>
-            <h3 style="font-weight:800;color:#1e1b4b;margin-top:8px">Welcome Back!</h3>
-            <p class="text-muted">Sign in to continue learning</p>
+            <div style="font-size:3rem">Edu</div>
+            <h3 style="font-weight:800;color:#1e1b4b;margin-top:8px">Welcome Back</h3>
+            <p class="text-muted">Sign in to continue learning securely.</p>
           </div>
+
+          {% if google_login_enabled %}
+          <div class="mb-3">
+            <div id="googleSignInMount" class="d-flex justify-content-center"></div>
+            <button type="button" id="googleFallbackButton" class="btn btn-outline-dark w-100 mt-3" style="display:none;border-radius:12px;padding:12px">
+              <i class="fab fa-google me-2"></i>Continue with Google
+            </button>
+          </div>
+          <div class="text-center text-muted small mb-3">or continue with your EduSpark account</div>
+          {% endif %}
+
           <form method="POST">
             {% csrf_token %}
             <div class="mb-3">
@@ -37,11 +48,59 @@
             </button>
           </form>
           <p class="text-center mt-4 mb-0 text-muted">
-            Don't have an account? <a href="{% url 'signup' %}" style="color:#7c3aed;font-weight:700">Sign Up Free</a>
+            Do not have an account? <a href="{% url 'signup' %}" style="color:#7c3aed;font-weight:700">Sign Up Free</a>
           </p>
         </div>
       </div>
     </div>
   </div>
 </div>
+{% endblock %}
+{% block extra_js %}
+{{ block.super }}
+{% if google_login_enabled and google_client_id %}
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+  const googleCsrfToken = "{{ csrf_token }}";
+
+  async function handleGoogleCredential(response) {
+    const result = await fetch("{% url 'google_login' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": googleCsrfToken
+      },
+      body: JSON.stringify({ credential: response.credential })
+    });
+    const payload = await result.json();
+    if (!payload.ok) {
+      alert(payload.message || "Google login failed.");
+      return;
+    }
+    window.location.href = payload.redirect_url || "{% url 'dashboard' %}";
+  }
+
+  window.addEventListener("load", function () {
+    const fallbackButton = document.getElementById("googleFallbackButton");
+    if (!window.google || !google.accounts || !google.accounts.id) {
+      if (fallbackButton) {
+        fallbackButton.style.display = "block";
+        fallbackButton.addEventListener("click", function () {
+          window.location.reload();
+        });
+      }
+      return;
+    }
+
+    google.accounts.id.initialize({
+      client_id: "{{ google_client_id }}",
+      callback: handleGoogleCredential
+    });
+    google.accounts.id.renderButton(
+      document.getElementById("googleSignInMount"),
+      { theme: "outline", size: "large", text: "continue_with", shape: "pill", width: 320 }
+    );
+  });
+</script>
+{% endif %}
 {% endblock %}

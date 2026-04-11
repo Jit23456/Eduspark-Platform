@@ -6,6 +6,13 @@ __pycache__/
 db.sqlite3
 staticfiles/
 media/
+!media/
+media/*
+!media/protected/
+media/protected/*
+!media/protected/materials/
+media/protected/materials/*
+!media/protected/materials/class-10-thermodynamics.pdf
 .env
 .env.*
 .azure/

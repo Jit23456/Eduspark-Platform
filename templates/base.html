@@ -10,8 +10,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background: #f4f6ff; color: #2d2d2d; }
-
-        /* ── NAVBAR ── */
         .navbar {
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important;
             padding: 14px 0;
@@ -29,8 +27,6 @@
             background: linear-gradient(135deg, #7c3aed, #ec4899);
             color: #fff !important; border-radius: 25px; padding: 7px 20px !important; font-weight: 600;
         }
-
-        /* ── BUTTONS ── */
         .btn-primary-custom {
             background: linear-gradient(135deg, #7c3aed, #6d28d9);
             border: none; color: #fff; padding: 11px 26px;
@@ -38,23 +34,17 @@
             box-shadow: 0 4px 15px rgba(124,58,237,.4); transition: .3s;
         }
         .btn-primary-custom:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124,58,237,.5); color: #fff; }
-
-        /* ── CARDS ── */
         .card-modern {
             border: none; border-radius: 18px;
             box-shadow: 0 4px 20px rgba(0,0,0,.07); transition: .3s;
         }
         .card-modern:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,.13); }
-
-        /* ── GRADIENTS ── */
-        .bg-hero    { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
-        .bg-purple  { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
-        .bg-pink    { background: linear-gradient(135deg, #ec4899, #f9a8d4); }
-        .bg-green   { background: linear-gradient(135deg, #059669, #34d399); }
-        .bg-orange  { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-        .bg-blue    { background: linear-gradient(135deg, #2563eb, #60a5fa); }
-
-        /* ── SIDEBAR ── */
+        .bg-hero { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
+        .bg-purple { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+        .bg-pink { background: linear-gradient(135deg, #ec4899, #f9a8d4); }
+        .bg-green { background: linear-gradient(135deg, #059669, #34d399); }
+        .bg-orange { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .bg-blue { background: linear-gradient(135deg, #2563eb, #60a5fa); }
         .sidebar {
             background: linear-gradient(180deg, #0f0c29, #302b63);
             min-height: calc(100vh - 68px);
@@ -69,13 +59,9 @@
             color: #fff !important; background: rgba(124,58,237,.25); border-left-color: #a78bfa;
         }
         .sidebar .nav-link i { width: 20px; }
-
-        /* ── STAT CARDS ── */
         .stat-card { border-radius: 16px; padding: 22px; color: #fff; text-align: center; }
         .stat-card h2 { font-size: 2.4rem; font-weight: 800; }
         .stat-card p { font-size: .88rem; opacity: .9; margin: 0; }
-
-        /* ── FORM ── */
         .form-control, .form-select {
             border: 2px solid #e5e7eb; border-radius: 10px;
             padding: 11px 14px; font-size: .95rem; transition: .3s;
@@ -91,11 +77,7 @@
             border: none; border-radius: 24px;
             box-shadow: 0 20px 60px rgba(0,0,0,.1); padding: 40px;
         }
-
-        /* ── COURSE CARD ── */
         .course-img { height: 155px; display:flex; align-items:center; justify-content:center; font-size:3.5rem; }
-
-        /* ── EXAM ── */
         .q-card {
             border: 2px solid #e5e7eb; border-radius: 14px;
             padding: 22px; margin-bottom: 18px; transition: .2s;
@@ -108,28 +90,46 @@
         .option-lbl:hover { border-color:#7c3aed; background:#f5f3ff; }
         input[type=radio]:checked + .option-lbl { border-color:#7c3aed; background:#f5f3ff; font-weight:600; }
         input[type=radio] { display:none; }
-
-        /* ── TIMER ── */
         #exam-timer {
             background: linear-gradient(135deg, #0f0c29, #302b63);
             color:#fff; padding:9px 20px; border-radius:30px; font-size:1.15rem; font-weight:700;
         }
         #exam-timer.warning { background: linear-gradient(135deg,#dc2626,#ef4444); }
-
-        /* ── PROGRESS ── */
         .progress { border-radius:10px; height:7px; }
         .progress-bar { border-radius:10px; }
-
-        /* ── FOOTER ── */
         .footer { background:linear-gradient(135deg,#0f0c29,#302b63); color:rgba(255,255,255,.7); padding:40px 0 20px; margin-top:60px; }
         .footer h6 { color:#fff; }
         .footer a { color:rgba(255,255,255,.55); text-decoration:none; }
         .footer a:hover { color:#a78bfa; }
-
-        /* ── MISC ── */
         .badge-pill { padding:5px 13px; border-radius:20px; font-size:.75rem; font-weight:600; }
         .section-title { font-size:2rem; font-weight:800; color:#1e1b4b; }
         .section-title span { color:#7c3aed; }
+        .mira-launcher {
+            position: fixed; right: 24px; bottom: 24px; z-index: 1200;
+            border: none; border-radius: 999px; padding: 14px 18px;
+            background: linear-gradient(135deg, #0f766e, #14b8a6); color: #fff;
+            font-weight: 700; box-shadow: 0 16px 32px rgba(15,118,110,.25);
+        }
+        .mira-panel {
+            position: fixed; right: 24px; bottom: 92px; z-index: 1200;
+            width: min(380px, calc(100vw - 24px)); max-height: 70vh; overflow: hidden;
+            background: #fff; border-radius: 22px; box-shadow: 0 20px 60px rgba(15,23,42,.18);
+            border: 1px solid rgba(148,163,184,.2); display: none;
+        }
+        .mira-panel.open { display: block; }
+        .mira-header {
+            padding: 18px 20px; color: #fff;
+            background: linear-gradient(135deg, #0f172a, #134e4a);
+        }
+        .mira-body { padding: 18px 20px; background: linear-gradient(180deg, #f8fafc, #ffffff); }
+        .mira-answer {
+            border-radius: 18px; background: #eff6ff; color: #0f172a;
+            padding: 14px 16px; min-height: 72px; font-size: .95rem;
+        }
+        .mira-suggestion {
+            border: 1px solid #dbeafe; background: #fff; color: #1d4ed8;
+            border-radius: 999px; padding: 8px 12px; font-size: .82rem;
+        }
         @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
         .fade-up { animation: fadeUp .6s ease forwards; }
     </style>
@@ -137,10 +137,9 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}">🎓 EduSpark</a>
+    <a class="navbar-brand" href="{% url 'home' %}">EduSpark</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -160,7 +159,7 @@
             <i class="fas fa-user-circle me-1"></i>{{ user.first_name|default:user.username }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end" style="border-radius:14px;border:none;box-shadow:0 10px 30px rgba(0,0,0,.15)">
-            <li><a class="dropdown-item" href="{% url 'dashboard' %}"><i class="fas fa-th-large me-2 text-purple-600"></i>Dashboard</a></li>
+            <li><a class="dropdown-item" href="{% url 'dashboard' %}"><i class="fas fa-th-large me-2"></i>Dashboard</a></li>
             {% if user.is_staff %}<li><a class="dropdown-item" href="/admin/"><i class="fas fa-cog me-2 text-warning"></i>Admin Panel</a></li>{% endif %}
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
@@ -175,7 +174,6 @@
   </div>
 </nav>
 
-<!-- MESSAGES -->
 {% if messages %}
 <div class="container mt-3">
   {% for m in messages %}
@@ -188,13 +186,41 @@
 
 {% block content %}{% endblock %}
 
-<!-- FOOTER -->
+<button class="mira-launcher" id="miraLauncher" type="button">
+  <i class="fas fa-robot me-2"></i>Mira
+</button>
+
+<div class="mira-panel" id="miraPanel" aria-live="polite">
+  <div class="mira-header">
+    <div style="font-size:1.05rem;font-weight:800">Mira</div>
+    <div style="font-size:.85rem;opacity:.85">Your guide for courses, login, exams, and Class 10 materials.</div>
+  </div>
+  <div class="mira-body">
+    <div class="mira-answer" id="miraAnswer">
+      I am Mira. Ask me where to find Class 10 material, how Google login works, or how to move around EduSpark.
+    </div>
+    <div class="d-flex flex-wrap gap-2 mt-3" id="miraSuggestions">
+      <button class="mira-suggestion" type="button" data-question="How do I open the Class 10 PDF?">Class 10 PDF</button>
+      <button class="mira-suggestion" type="button" data-question="How do I use Google login?">Google login</button>
+      <button class="mira-suggestion" type="button" data-question="Where is my dashboard?">Dashboard</button>
+    </div>
+    <form class="mt-3" id="miraForm">
+      <label for="miraQuestion" class="form-label" style="font-weight:600">Ask Mira</label>
+      <div class="d-flex gap-2">
+        <input id="miraQuestion" class="form-control" maxlength="300" placeholder="Ask about courses, exams, login, or Class 10 material">
+        <button class="btn btn-primary-custom" type="submit">Ask</button>
+      </div>
+    </form>
+    <a href="/courses/" id="miraLink" class="btn btn-link px-0 mt-2" style="display:none;text-decoration:none;font-weight:600">Open suggested page</a>
+  </div>
+</div>
+
 <footer class="footer">
   <div class="container">
     <div class="row">
       <div class="col-md-4 mb-4">
-        <h5 style="background:linear-gradient(90deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;font-size:1.4rem">🎓 EduSpark</h5>
-        <p class="mt-2" style="font-size:.88rem">India's smartest EdTech platform for Class 1–10. Learn anytime, anywhere.</p>
+        <h5 style="background:linear-gradient(90deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;font-size:1.4rem">EduSpark</h5>
+        <p class="mt-2" style="font-size:.88rem">India's smart learning platform for Class 1 to Class 10.</p>
       </div>
       <div class="col-md-2 mb-4">
         <h6>Quick Links</h6>
@@ -223,11 +249,67 @@
       </div>
     </div>
     <hr style="border-color:rgba(255,255,255,.1)">
-    <p class="text-center mb-0" style="font-size:.82rem">© 2024 EduSpark · Made with ❤️ for students across India</p>
+    <p class="text-center mb-0" style="font-size:.82rem">Copyright 2024 EduSpark</p>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  (function () {
+    const launcher = document.getElementById("miraLauncher");
+    const panel = document.getElementById("miraPanel");
+    const form = document.getElementById("miraForm");
+    const input = document.getElementById("miraQuestion");
+    const answer = document.getElementById("miraAnswer");
+    const link = document.getElementById("miraLink");
+    const suggestions = document.getElementById("miraSuggestions");
+
+    async function askMira(question) {
+      if (!question) {
+        return;
+      }
+      answer.textContent = "Mira is checking that for you...";
+      link.style.display = "none";
+      const url = "{% url 'mira_assistant' %}?q=" + encodeURIComponent(question);
+      const response = await fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } });
+      const payload = await response.json();
+      answer.textContent = payload.answer || "I could not find that just now.";
+
+      suggestions.innerHTML = "";
+      (payload.suggestions || []).slice(0, 3).forEach(function (item) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "mira-suggestion";
+        button.dataset.question = item;
+        button.textContent = item;
+        suggestions.appendChild(button);
+      });
+
+      if (payload.link) {
+        link.href = payload.link;
+        link.style.display = "inline-flex";
+      }
+    }
+
+    launcher.addEventListener("click", function () {
+      panel.classList.toggle("open");
+    });
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      askMira(input.value.trim());
+    });
+
+    suggestions.addEventListener("click", function (event) {
+      const trigger = event.target.closest("[data-question]");
+      if (!trigger) {
+        return;
+      }
+      input.value = trigger.dataset.question;
+      askMira(trigger.dataset.question);
+    });
+  })();
+</script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

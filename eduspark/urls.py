@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
-from .views import dashboard, home, signup
+from .views import CustomLoginView, dashboard, google_login, home, mira_assistant, signup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,7 +26,9 @@ urlpatterns = [
     path('courses/', include('eduspark.courses.urls')),
     path('exams/', include('exams.urls')),
     path('dashboard/', dashboard, name='dashboard'),
-    path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     path('signup/', signup, name='signup'),
+    path('auth/google/', google_login, name='google_login'),
+    path('mira/', mira_assistant, name='mira_assistant'),
 ]

@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from urllib.parse import parse_qs, urlparse
 
@@ -74,3 +76,36 @@ class Assignment(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class StudyMaterial(models.Model):
+    MATERIAL_TYPE_CHOICES = [
+        ('pdf', 'PDF Document'),
+    ]
+
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='materials')
+    chapter = models.ForeignKey(
+        Chapter,
+        on_delete=models.SET_NULL,
+        related_name='materials',
+        null=True,
+        blank=True,
+    )
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    material_type = models.CharField(max_length=20, choices=MATERIAL_TYPE_CHOICES, default='pdf')
+    file = models.FileField(upload_to='protected/materials/')
+    is_download_allowed = models.BooleanField(default=False)
+    requires_login = models.BooleanField(default=True)
+    sort_order = models.PositiveSmallIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['sort_order', 'title']
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def filename(self):
+        return os.path.basename(self.file.name or '')

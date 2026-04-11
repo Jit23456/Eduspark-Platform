@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Assignment, Chapter, Course, Video
+from .models import Assignment, Chapter, Course, StudyMaterial, Video
 
 
 class ChapterInline(admin.StackedInline):
@@ -9,11 +9,26 @@ class ChapterInline(admin.StackedInline):
     fields = ('title', 'order', 'description')
 
 
+class StudyMaterialInline(admin.TabularInline):
+    model = StudyMaterial
+    extra = 0
+    fields = (
+        'title',
+        'chapter',
+        'material_type',
+        'file',
+        'requires_login',
+        'is_download_allowed',
+        'sort_order',
+    )
+
+
+@admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('title', 'subject', 'class_grade', 'created_at')
     list_filter = ('subject', 'class_grade')
     search_fields = ('title', 'description')
-    inlines = [ChapterInline]
+    inlines = [ChapterInline, StudyMaterialInline]
 
 
 class VideoInline(admin.TabularInline):
@@ -49,3 +64,19 @@ class AssignmentAdmin(admin.ModelAdmin):
     list_display = ('title', 'chapter', 'due_date')
     list_filter = ('chapter__course', 'due_date')
     search_fields = ('title', 'instructions', 'chapter__title')
+
+
+@admin.register(StudyMaterial)
+class StudyMaterialAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'course',
+        'chapter',
+        'material_type',
+        'requires_login',
+        'is_download_allowed',
+        'sort_order',
+    )
+    list_filter = ('course__class_grade', 'course__subject', 'material_type', 'requires_login')
+    search_fields = ('title', 'description', 'course__title', 'chapter__title')
+    ordering = ('course', 'sort_order', 'title')
