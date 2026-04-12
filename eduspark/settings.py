@@ -94,10 +94,17 @@ WSGI_APPLICATION = 'eduspark.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+sqlite_name = BASE_DIR / 'db.sqlite3'
+if os.getenv('WEBSITE_HOSTNAME'):
+    # Azure zip deployments can be read-only under /home/site/wwwroot.
+    # Keep sqlite in a writable persistent folder.
+    sqlite_name = Path('/home/site/data/db.sqlite3')
+    sqlite_name.parent.mkdir(parents=True, exist_ok=True)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': sqlite_name,
     }
 }
 
