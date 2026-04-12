@@ -4,3 +4,7 @@ whitenoise>=6.5
 gunicorn>=21.0
 google-auth>=2.35
 requests>=2.31
+django-allauth>=0.63
+openai>=1.0
+PyJWT>=2.0
+cryptography>=3.0

@@ -31,4 +31,5 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('auth/google/', google_login, name='google_login'),
     path('mira/', mira_assistant, name='mira_assistant'),
+    path('accounts/', include('allauth.urls')),
 ]

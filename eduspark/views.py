@@ -66,7 +66,36 @@ def build_unique_username(email, first_name='', last_name=''):
 
 
 def build_mira_response(question):
+    from django.conf import settings
     normalized = (question or '').strip().lower()[:300]
+
+    if settings.MIRA_AI_ENABLED:
+        try:
+            import openai
+            client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are Mira, an AI assistant for EduSpark, a secure educational platform. Help users with courses, materials, login, and navigation. Keep responses helpful, secure, and focused on education. Do not share sensitive information."},
+                    {"role": "user", "content": question}
+                ],
+                max_tokens=200
+            )
+            answer = response.choices[0].message.content.strip()
+            return {
+                'answer': answer,
+                'suggestions': [
+                    'How do I access Class 10 materials?',
+                    'How to sign in?',
+                    'Where are my courses?',
+                ],
+                'link': '',
+            }
+        except Exception as e:
+            # Fallback to rule-based
+            pass
+
+    # Rule-based fallback
     class_10_course = (
         Course.objects.filter(class_grade=10, materials__isnull=False)
         .prefetch_related('materials')
