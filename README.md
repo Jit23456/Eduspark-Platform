@@ -4,8 +4,7 @@ EduSpark is a Django learning platform with course pages, embedded video lecture
 
 ## Live App
 
-- Public app: https://eduspark-live-25047.azurewebsites.net/
-- Courses page: https://eduspark-live-25047.azurewebsites.net/courses/
+
 - Backend: https://web-production-f2bac.up.railway.app/
 - Frontend: https://flowexpense.netlify.app/
 
@@ -39,38 +38,6 @@ cd "C:\Users\HP\Dropbox\My PC (LAPTOP-MO4VABTT)\Desktop\eduspark platform\eduspa
 ..\venv\Scripts\python.exe manage.py runserver 0.0.0.0:8000
 ```
 
-Open locally at:
-
-- `http://127.0.0.1:8000`
-
-## Public access with ngrok
-
-Keep Django running, then in a second terminal from the workspace root:
-
-```powershell
-cd "C:\Users\HP\Dropbox\My PC (LAPTOP-MO4VABTT)\Desktop\eduspark platform"
-.\venv\Scripts\ngrok.exe http 8000
-```
-
-Open the `https://...ngrok-free.app` URL printed by ngrok.
-
-## Azure deployment notes
-
-This repo already contains Azure App Service settings:
-
-- Resource group: `eduspark-rg`
-- Plan: `surajitchakraborty823_asp_9657`
-- Location: `southindia`
-- Web app: `edusparkplatformapp6839`
-
-To deploy from a machine that is logged into Azure CLI:
-
-```powershell
-cd "C:\Users\HP\Dropbox\My PC (LAPTOP-MO4VABTT)\Desktop\eduspark platform\eduspark"
-az webapp up --name edusparkplatformapp6839 --resource-group eduspark-rg --plan surajitchakraborty823_asp_9657 --location southindia
-```
-
-If static assets are missing after deployment, run:
 
 ```powershell
 ..\venv\Scripts\python.exe manage.py collectstatic --noinput
