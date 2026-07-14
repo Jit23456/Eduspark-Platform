@@ -6,6 +6,10 @@ EduSpark is a Django learning platform with course pages, embedded video lecture
 
 - Public app: https://eduspark-live-25047.azurewebsites.net/
 - Courses page: https://eduspark-live-25047.azurewebsites.net/courses/
+- Backend: https://web-production-f2bac.up.railway.app/
+- Frontend: https://flowexpense.netlify.app/
+
+## Features
 
 ## What is included
 
